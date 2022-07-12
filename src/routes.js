@@ -40,16 +40,7 @@ router.post('/api/conversations/:id', (request, response) => {
 })
 
 /* GET a message URL to get details of a message */
-router.get('/api/conversations/:id/:msgid', (request, response) => {
-    if (auth.validUser(request)) {
-        const id = request.params.id
-        const msgid = request.params.msgid
-        const result = model.getMessage(id, msgid)
-        response.json(result)
-    } else {
-        response.json({status: "unauthorised"})
-    }
-})
+router.get('/api/conversations/:id/:msgid', () => {})
 
 
 /* DELETE to message URL to delete the message */

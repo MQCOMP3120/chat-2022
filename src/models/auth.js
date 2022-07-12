@@ -1,15 +1,4 @@
 const mongoose = require('mongoose')
-const config = require('../config')
-
-const initDB = async () => {
-    await mongoose
-        .connect(config.mongoDBUrl)
-        .catch((error) => {    
-            console.log('error connecting to MongoDB:', error.message)  
-        })
-    }
-    
-initDB()
 
 const sessionSchema = new mongoose.Schema({
     username: {type: String, unique: true}
@@ -46,10 +35,10 @@ const createSession = async (request, response) => {
 const validUser = async (request) => {
 
     if (request.signedCookies) {
-        const matche = await Session.findOne({_id: request.signedCookies.session})  
+        const match = await Session.findOne({_id: request.signedCookies.session})  
 
-        if (matche) {
-            return matche.username
+        if (match) {
+            return match._id
         }
     } 
     return false

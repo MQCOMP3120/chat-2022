@@ -3,7 +3,7 @@ const auth = require('./auth')
 
 const conversationSchema = new mongoose.Schema({
     title: String,
-    creator: String
+    creator: mongoose.Types.ObjectId
   })
   
 const Conversation = mongoose.model('Conversation', conversationSchema)
@@ -42,4 +42,8 @@ const getConversations = async (request, response) => {
 
 }
 
-module.exports = {Conversation, createConversation, getConversations}
+module.exports = {
+    Conversation, 
+    createConversation, 
+    getConversations
+}

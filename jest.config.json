@@ -1,0 +1,8 @@
+{
+    "globalSetup": "./tests/globalSetup.js",
+    "globalTeardown": "./tests/globalTeardown.js",
+    "setupFilesAfterEnv": [
+      "./tests/setupFile.js"
+    ]
+}
+  
