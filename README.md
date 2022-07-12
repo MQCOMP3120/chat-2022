@@ -46,11 +46,11 @@ Real time chat is supported via web sockets.
   * response: `{"status": "success" | "unauthorised"}
 
 
-** Database
+## Database
 
 We use MongoDB to store data with the following tables.
 
-*** Sessions
+### Sessions
 
 ```json
 {
@@ -59,7 +59,7 @@ We use MongoDB to store data with the following tables.
 }
 ```
 
-*** Conversations
+### Conversations
 
 ```json
 {
@@ -69,7 +69,7 @@ We use MongoDB to store data with the following tables.
 }
 ```
 
-*** Messages
+### Messages
 
 ```json
 {
