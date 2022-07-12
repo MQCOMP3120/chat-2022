@@ -54,7 +54,7 @@ We use MongoDB to store data with the following tables.
 
 ```json
 {
-    "id": "session id used in cookie",
+    "_id": "session id used in cookie",
     "username": "unique username registered"
 }
 ```
@@ -63,9 +63,9 @@ We use MongoDB to store data with the following tables.
 
 ```json
 {
-    "id": "conversation id",
+    "_id": "conversation id",
     "title": "conversation title",
-    "created": "username of creator"
+    "creator": "username of creator"
 }
 ```
 
@@ -73,7 +73,7 @@ We use MongoDB to store data with the following tables.
 
 ```json
 {
-    "id": "message id",
+    "_id": "message id",
     "user": "username of author",
     "timestamp": "ISO timestamp for message",
     "text": "markdown text of the message"

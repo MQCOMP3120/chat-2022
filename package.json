@@ -4,14 +4,25 @@
   "description": "Backend for a real-time chat service",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "test": "jest"
+    "start": "cross-env NODE_ENV=development nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "Steve.Cassidy@mq.edu.au",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "errorhandler": "^1.5.1",
     "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "jest": "^28.1.2",
     "mongoose": "^6.4.4",
+    "morgan": "^1.10.0",
+    "node-notifier": "^10.0.1",
     "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "supertest": "^6.2.4"
   }
 }
