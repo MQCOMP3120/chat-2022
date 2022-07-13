@@ -1,6 +1,7 @@
 const express = require('express')
 const auth = require('./models/auth')
 const conv = require('./models/conversations')
+const messages = require('./models/messages')
 
 const router = express.Router()
  
@@ -17,43 +18,17 @@ router.get('/api/conversations', conv.getConversations)
 router.post('/api/conversations', conv.createConversation)
 
 /* GET a conversation returns the list of the last N conversations */
-router.get('/api/conversations/:id', (request, response) => {
-    if (auth.validUser(request)) {
-        const id = request.params.id
-        const conversation = model.getConversation(id)
-        response.json(conversation)
-    } else {
-        response.json({status: "unauthorised"})
-    }
-})
+router.get('/api/conversations/:id', messages.getMessages)
 
 /* POST to a conversation to create a new message */
-router.post('/api/conversations/:id', (request, response) => {
-    if (auth.validUser(request)) {
-        const id = request.params.id
-        const message = request.body
-        const result = model.addMessage(id, message)
-        response.json(result)
-    } else {
-        response.json({status: "unauthorised"})
-    }
-})
+router.post('/api/conversations/:id', messages.createMessage)
 
 /* GET a message URL to get details of a message */
-router.get('/api/conversations/:id/:msgid', () => {})
+router.get('/api/conversations/:id/:msgid', messages.getMessage)
 
 
 /* DELETE to message URL to delete the message */
-router.delete('/api/conversations/:id/:msgid', (request, response) => {
-    if (auth.validUser(request)) {
-        const id = request.params.id
-        const msgid = request.params.msgid
-        const result = model.deleteMessage(id, msgid)
-        response.json(result)
-    } else {
-        response.json({status: "unauthorised"})
-    }
-})
+router.delete('/api/conversations/:id/:msgid', messages.deleteMessage)
 
 
 module.exports = router 
