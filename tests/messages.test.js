@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../src/app')
-const auth = require('../src/controllers/auth')
 const models = require('../src/models')
-
 
 const api = supertest.agent(app)
 
@@ -81,6 +79,39 @@ describe('api', () => {
     })
 
     */
+
+    test('delete a  message', async () => {
+
+        let conversation
+        let message
+
+        await api.post('/auth/register')
+            .send({username: 'bobalooba'})
+            .expect(200)
+            .expect({status: 'success'})
+
+        await api.post('/api/conversations')
+            .send({title: "A test conversation"})
+            .expect(200)
+            .then(response => {
+                conversation = response.body
+            })
+
+        await api.post(conversation.url)
+        .send({text: "A test message"})
+        .expect(200)
+        .expect(response => {
+            message = response.body
+            if (!message.status == 'success') throw new Error(`Expected status "success" but got ${message.status}`)
+            if (!message.url.match(/\/api\/conversations\/\w+\/\w+/)) throw new Error(`expected url got ${message.url}`)
+        })
+
+        /* now try to delete it */
+        await api.delete(message.url)
+        .expect(200)
+        .expect({'status': 'success'})
+
+    })
 
     afterAll(() => {
         mongoose.connection.close()

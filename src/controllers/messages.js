@@ -62,6 +62,27 @@ const getMessage = async (request, response) => {
 
 const deleteMessage = async (request, response) => {
 
+    const user = await auth.validUser(request)
+
+    if (user) { 
+        const msgid = request.params.msgid
+        const message = await models.Message.findOne({_id: msgid})
+        if (message.creator.toString() == user.toString()) {
+            const result = await models.Message.deleteOne({_id: msgid})
+            if (result.acknowledged) {
+                response.json({status: 'success'})
+            } else {
+                response.json({'status': 'unable to delete message'})
+            }
+        } else {
+            // not authorised to delete 
+            response.sendStatus(401)
+        }
+        response.json(result)
+    } else {
+        response.sendStatus(401)
+    }
+
 }
 
 module.exports = {
