@@ -47,12 +47,11 @@ const getMessages = async (request, response) => {
 
     if (user) {
         const id = request.params.id
-        const messages = await Message.find({conversation: id})
+        const messages = await Message.find({conversation: id}).sort('timestamp')
         response.json({messages})
     } else {
         response.sendStatus(401)
     }
-
 }
 
 const getMessage = async (request, response) => {

@@ -1,7 +1,7 @@
 const express = require('express')
-const auth = require('./models/auth')
-const conv = require('./models/conversations')
-const messages = require('./models/messages')
+const auth = require('./controllers/auth')
+const conv = require('./controllers/conversations')
+const messages = require('./controllers/messages')
 
 const router = express.Router()
  
