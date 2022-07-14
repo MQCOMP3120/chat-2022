@@ -1,14 +1,16 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../src/app')
-const auth = require('../src/models/auth')
+const auth = require('../src/controllers/auth')
+const models = require('../src/models')
+
 
 const api = supertest.agent(app)
 
 describe('api', () => {
 
     beforeEach(async () => {
-        await auth.Session.deleteMany({username: 'bobalooba'})
+        await models.Session.deleteMany({username: 'bobalooba'})
     })
 
     test('make a  message', async () => {

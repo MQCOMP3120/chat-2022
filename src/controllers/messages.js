@@ -1,14 +1,6 @@
-const mongoose = require('mongoose')
+const models = require('../models')
 const auth = require('./auth')
 const convo = require('./conversations')
-
-const messageSchema = new mongoose.Schema({
-    text: String,
-    creator: mongoose.Types.ObjectId,
-    conversation: mongoose.Types.ObjectId
-  })
-  
-const Message = mongoose.model('Message', messageSchema)
 
 const createMessage = async (request, response) => {
 
@@ -19,11 +11,11 @@ const createMessage = async (request, response) => {
         const cid = request.params.id
         // check that this is a valid conversation
 
-        const conversation = await convo.Conversation.findOne({_id: cid})
+        const conversation = await models.Conversation.findOne({_id: cid})
 
         if (conversation) {
 
-            const message = new Message({creator, conversation: conversation._id, text})
+            const message = new models.Message({creator, conversation: conversation._id, text})
             const returned = await message.save()
 
             if (returned) {
@@ -47,7 +39,7 @@ const getMessages = async (request, response) => {
 
     if (user) {
         const id = request.params.id
-        const messages = await Message.find({conversation: id}).sort('timestamp')
+        const messages = await models.Message.find({conversation: id}).sort('timestamp')
         response.json({messages})
     } else {
         response.sendStatus(401)
@@ -60,7 +52,7 @@ const getMessage = async (request, response) => {
 
     if (user) { 
         const msgid = request.params.msgid
-        const result = Message.findOne({_id: msgid})
+        const result = models.Message.findOne({_id: msgid})
         response.json(result)
     } else {
         response.sendStatus(401)
@@ -73,7 +65,6 @@ const deleteMessage = async (request, response) => {
 }
 
 module.exports = {
-    Message, 
     createMessage, 
     getMessages,
     getMessage, 

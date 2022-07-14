@@ -1,12 +1,6 @@
-const mongoose = require('mongoose')
 const auth = require('./auth')
+const models = require('../models')
 
-const conversationSchema = new mongoose.Schema({
-    title: String,
-    creator: mongoose.Types.ObjectId
-  })
-  
-const Conversation = mongoose.model('Conversation', conversationSchema)
 
 const createConversation = async (request, response) => {
 
@@ -14,7 +8,7 @@ const createConversation = async (request, response) => {
 
     if (creator) {
         const title = request.body.title
-        const conversation = new Conversation({creator, title})
+        const conversation = new models.Conversation({creator, title})
         const returned = await conversation.save()
 
         if (returned) {
@@ -34,7 +28,7 @@ const getConversations = async (request, response) => {
     const user = await auth.validUser(request)
 
     if (user) {
-        const conversations = await Conversation.find({})
+        const conversations = await models.Conversation.find({})
         response.json({conversations})
     } else {
         response.sendStatus(401)
@@ -42,8 +36,7 @@ const getConversations = async (request, response) => {
 
 }
 
-module.exports = {
-    Conversation, 
+module.exports = { 
     createConversation, 
     getConversations
 }

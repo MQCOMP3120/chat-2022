@@ -1,15 +1,9 @@
-const mongoose = require('mongoose')
-
-const sessionSchema = new mongoose.Schema({
-    username: {type: String, unique: true}
-  })
-  
-const Session = mongoose.model('Session', sessionSchema)
+const models = require('../models')
 
 /* Create a new session for a user */
 const createSession = async (request, response) => {
 
-    const session = new Session({
+    const session = new models.Session({
         username: request.body.username
     })
 
@@ -35,7 +29,7 @@ const createSession = async (request, response) => {
 const validUser = async (request) => {
 
     if (request.signedCookies) {
-        const match = await Session.findOne({_id: request.signedCookies.session})  
+        const match = await models.Session.findOne({_id: request.signedCookies.session})  
 
         if (match) {
             return match._id
@@ -44,4 +38,4 @@ const validUser = async (request) => {
     return false
 }
 
-module.exports = { Session, validUser, createSession }
+module.exports = { validUser, createSession }

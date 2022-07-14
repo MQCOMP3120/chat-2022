@@ -1,14 +1,16 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../src/app')
-const auth = require('../src/models/auth')
+const auth = require('../src/controllers/auth')
+const models = require('../src/models')
+
 
 const api = supertest(app)
 
 describe('auth', () => {
 
     beforeEach(async () => {
-        await auth.Session.deleteMany({username: 'bobalooba'})
+        await models.Session.deleteMany({username: 'bobalooba'})
     })
 
     test('post to register makes a cookie', async () => {
