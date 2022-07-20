@@ -26,7 +26,6 @@ router.post('/api/conversations/:id', messages.createMessage)
 /* GET a message URL to get details of a message */
 router.get('/api/conversations/:id/:msgid', messages.getMessage)
 
-
 /* DELETE to message URL to delete the message */
 router.delete('/api/conversations/:id/:msgid', messages.deleteMessage)
 

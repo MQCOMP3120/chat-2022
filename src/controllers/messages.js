@@ -1,6 +1,5 @@
 const models = require('../models')
 const auth = require('./auth')
-const convo = require('./conversations')
 
 const createMessage = async (request, response) => {
 

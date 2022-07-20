@@ -28,7 +28,7 @@ Real time chat is supported via web sockets.
 * `GET` - list recent messages
   * requires a valid session cookie
   * query parameter `N` - number of messages, default 10
-  * response: `{"messages": [{"user": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}]}`
+  * response: `{"messages": [{"creator": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}]}`
 
 * `POST` - post a new message
   * requires a valid session cookie
@@ -39,7 +39,7 @@ Real time chat is supported via web sockets.
 
 * `GET` - get message detail
   * requires a valid session cookie
-  * response: `{"user": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}`
+  * response: `{"creator": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}`
 
 * `DELETE` - delete message
   * requires a valid session cookie for the user who created the message
@@ -74,6 +74,7 @@ We use MongoDB to store data with the following tables.
 ```json
 {
     "_id": "message id",
+    "conversation": "conversation id",
     "user": "username of author",
     "timestamp": "ISO timestamp for message",
     "text": "markdown text of the message"

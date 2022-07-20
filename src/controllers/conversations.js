@@ -13,7 +13,7 @@ const createConversation = async (request, response) => {
 
         if (returned) {
             url = `/api/conversations/${conversation._id}`
-            response.json({status: "success", url: url})
+            response.json({status: "success", url: url, msgcount: 0})
         } else {
             response.json({status: "error"})
         }
@@ -29,6 +29,7 @@ const getConversations = async (request, response) => {
 
     if (user) {
         const conversations = await models.Conversation.find({})
+                                          .populate('messages')
         response.json({conversations})
     } else {
         response.sendStatus(401)

@@ -62,6 +62,18 @@ describe('api', () => {
                 conversation = response.body
             })
 
+        await api.post(conversation.url)
+            .send({text: "1 A test message"})
+            .expect(200)
+
+        await api.post(conversation.url)
+            .send({text: "2 Another test message"})
+            .expect(200)
+
+        await api.post(conversation.url)
+            .send({text: "3 and another"})
+            .expect(200)
+            
         await api.get(conversation.url) 
         .expect(200)
         .expect(response => {
