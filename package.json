@@ -1,29 +1,56 @@
 {
-  "name": "chat-backend",
-  "version": "1.0.0",
-  "description": "Backend for a real-time chat service",
-  "main": "index.js",
-  "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon src/index.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
-  },
-  "author": "Steve.Cassidy@mq.edu.au",
-  "license": "BSD-2-Clause",
+  "name": "chat-frontend",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4",
+
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "errorhandler": "^1.5.1",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
-    "jest": "^28.1.2",
     "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
-    "node-notifier": "^10.0.1",
-    "nodemon": "^2.0.19"
+    "node-notifier": "^10.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "mongodb-memory-server": "^8.7.2",
-    "supertest": "^6.2.4"
+    "supertest": "^6.2.4",
+    "jest": "^28.1.2",
+    "nodemon": "^2.0.19"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "server": "cross-env NODE_ENV=development nodemon server/src/index.js",
+    "test-server": "cross-env NODE_ENV=test jest --verbose --runInBand"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

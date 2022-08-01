@@ -1,10 +1,35 @@
-# Backend Server for a Real-Time Chat Service
+# A Real-Time Chat Service
 
-Provides a backend service to support real time chat.   Users can 
-register and create new conversation topics, post and join conversations. 
+This repository is the starter kit for the COMP3120 Individual Project 
+for 2022: a real time chat service.  The back-end implementation is 
+in the `server` subdirectory.  The front-end project is homed in the 
+main directory (with sources in `src`).  
+
+To run the front-end development server:
+
+```bash
+npm run start
+```
+
+## Backend Server
+
+The project provides a backend service to support real time chat.   Users can
+register and create new conversation topics, post and join conversations.
 Real time chat is supported via web sockets.
 
-## Routes
+To star the backend, run:
+
+```bash
+npm run server
+```
+
+To run the backend tests:
+
+```bash
+npm run test-server
+```
+
+### Routes
 
 `/auth/register`
 
@@ -45,12 +70,11 @@ Real time chat is supported via web sockets.
   * requires a valid session cookie for the user who created the message
   * response: `{"status": "success" | "unauthorised"}
 
-
-## Database
+### Database
 
 We use MongoDB to store data with the following tables.
 
-### Sessions
+#### Sessions
 
 ```json
 {
@@ -59,7 +83,7 @@ We use MongoDB to store data with the following tables.
 }
 ```
 
-### Conversations
+#### Conversations
 
 ```json
 {
@@ -69,7 +93,7 @@ We use MongoDB to store data with the following tables.
 }
 ```
 
-### Messages
+#### Messages
 
 ```json
 {
