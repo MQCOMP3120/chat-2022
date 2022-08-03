@@ -1,20 +1,20 @@
 # A Real-Time Chat Service
 
-This repository is the starter kit for the COMP3120 Individual Project 
-for 2022: a real time chat service.  The back-end implementation is 
-in the `server` subdirectory.  The front-end project is homed in the 
+This repository is the starter kit for the COMP3120 Individual Project
+for 2022: a real time chat service.  The back-end implementation is
+in the `server` subdirectory.  The front-end project is homed in the
 main directory (with sources in `src`).  
 
 ## Configuration
 
-Copy the file `.env.dist` to `.env` and edit the file with your own 
+Copy the file `.env.dist` to `.env` and edit the file with your own
 settings - in particular your MongoDB settings if you are doing server
-side development.  Note that these settings are only relevant to the 
+side development.  Note that these settings are only relevant to the
 server implementation, not the front-end.
 
 ## Frontend Project
 
-The `src` folder contains a template front-end React project to get you 
+The `src` folder contains a template front-end React project to get you
 started.
 
 To run the front-end development server:
@@ -96,13 +96,17 @@ the user registers.
 
 ### Database
 
-We use MongoDB to store data with the following tables.
+We use MongoDB to store data with the following tables.  To run the server yourself you
+need to create a MongoDB database, for example with
+[MongoDB Atlas](https://www.mongodb.com/atlas/database) as described in
+[the textbook](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#mongo-db).  
+You will need to add the access URL to your `.env` file for the server to work.
 
 #### Sessions
 
 ```json
 {
-    "_id": "session id used in cookie",
+    "_id": "session id used as authorization token",
     "username": "unique username registered"
 }
 ```
