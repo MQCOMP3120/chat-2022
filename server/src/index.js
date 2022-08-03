@@ -1,10 +1,10 @@
 const app = require('./app')
 const models = require('./models')
+const config = require('./config')
 
 models.initDB()
-
-const PORT = 8201
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+ 
+app.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`)
 })
 
