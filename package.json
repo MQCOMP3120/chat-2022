@@ -18,10 +18,10 @@
     "express-async-errors": "^3.1.1",
     "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
-    "node-notifier": "^10.0.1"
+    "node-notifier": "^10.0.1",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "mongodb-memory-server": "^8.7.2",
     "supertest": "^6.2.4",
     "jest": "^28.1.2",
@@ -31,8 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "cross-env NODE_ENV=development nodemon server/src/index.js",
+    "eject": "react-scripts eject",    
+    "devserver": "cross-env NODE_ENV=development nodemon server/src/index.js",
+    "server": "cross-env NODE_ENV=production node server/src/index.js",
     "test-server": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "eslintConfig": {
