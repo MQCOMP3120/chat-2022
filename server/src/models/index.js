@@ -26,19 +26,18 @@ const conversationSchema = new mongoose.Schema({
 
 conversationSchema.virtual('messages', {
     ref: 'Message', // The model to use
-    localField: '_id', // Find people where `localField`
+    localField: '_id', // Find messages where `localField`
     foreignField: 'conversation', // is equal to `foreignField`
     count: true // And only get the number of docs
   });
-  
-conversationSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-      returnedObject.id = document._id.toString()
-      delete returnedObject._id
-      delete returnedObject.__v
-    }
-  })
 
+conversationSchema.methods.toJSON = function () {
+    const cObj = this.toObject()
+    cObj.id = cObj._id.toString()
+    delete cObj._id
+    delete cObj.__v
+    return cObj
+}
 
 const Conversation = mongoose.model('Conversation', conversationSchema)
 
@@ -52,6 +51,11 @@ const messageSchema = new mongoose.Schema({
 messageSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = document._id.toString()
+
+    if (document.creator) {
+      returnedObject.creator = document.creator.username
+    }
+
     delete returnedObject._id
     delete returnedObject.__v
   }

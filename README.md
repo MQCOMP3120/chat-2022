@@ -66,29 +66,29 @@ the user registers.
 * `POST` - create a new conversation
   * requires a valid session cookie
   * request: `{"title": "conversation title"}`
-  * response: `{"status": "success" | "unauthorised", "url": "url to post new messages"}
+  * response: `{"status": "success" | "unauthorised", "id": "conversation id"}
 
 * `GET` - list conversations
   * requires a valid session cookie
-  * response: `{"conversations": [{"title": "xyzzy", "msgcount": 99, "url": "conversation url"}]}`
+  * response: `{"conversations": [{"title": "xyzzy", "messages": 99, "id": "conversation id"}]}`
 
 `/api/conversations/:id`
 
 * `GET` - list recent messages
   * requires a valid session cookie
   * query parameter `N` - number of messages, default 10
-  * response: `{"messages": [{"creator": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}]}`
+  * response: `{"messages": [{"creator": "username", "text": "message text", "timestamp": "TTT", "id": "message id"}]}`
 
 * `POST` - post a new message
   * requires a valid session cookie
   * request: `{"text": "message text"}`
-  * response: `{"status": "success" | "unauthorised", "url": "message url"}`
+  * response: `{"status": "success" | "unauthorised", "id": "message id"}`
 
 `/api/conversations/:id/:messageid`
 
 * `GET` - get message detail
   * requires a valid session cookie
-  * response: `{"creator": "usernamae", "text": "message text", "timestamp": "TTT", "url": "message url"}`
+  * response: `{"creator": "usernamae", "text": "message text", "timestamp": "TTT", "id": "message id"}`
 
 * `DELETE` - delete message
   * requires a valid session cookie for the user who created the message

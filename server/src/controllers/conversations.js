@@ -12,8 +12,7 @@ const createConversation = async (request, response) => {
         const returned = await conversation.save()
 
         if (returned) {
-            url = `/api/conversations/${conversation._id}`
-            response.json({status: "success", url: url, msgcount: 0})
+            response.json({status: "success", id: conversation._id, messages: 0})
         } else {
             response.json({status: "error"})
         }

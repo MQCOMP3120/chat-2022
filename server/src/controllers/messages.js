@@ -18,8 +18,7 @@ const createMessage = async (request, response) => {
             const returned = await message.save()
 
             if (returned) {
-                url = `/api/conversations/${conversation._id}/${returned._id}`
-                response.json({status: "success", url: url})
+                response.json({status: "success", id: returned._id})
             } else {
                 response.json({status: "error"})
             }
@@ -38,7 +37,9 @@ const getMessages = async (request, response) => {
 
     if (user) {
         const id = request.params.id
-        const messages = await models.Message.find({conversation: id}).sort('timestamp')
+        const messages = await models.Message.find({conversation: id})
+                .populate('creator')
+                .sort('timestamp')
         response.json({messages})
     } else {
         response.sendStatus(401)
@@ -51,7 +52,7 @@ const getMessage = async (request, response) => {
 
     if (user) { 
         const msgid = request.params.msgid
-        const result = models.Message.findOne({_id: msgid})
+        const result = models.Message.findById(msgid).populate('creator')
         response.json(result)
     } else {
         response.sendStatus(401)
@@ -66,20 +67,23 @@ const deleteMessage = async (request, response) => {
     if (user) { 
         const msgid = request.params.msgid
         const message = await models.Message.findOne({_id: msgid})
-        if (message.creator.toString() == user.toString()) {
+        if (message.creator.toString() === user.toString()) {
             const result = await models.Message.deleteOne({_id: msgid})
             if (result.acknowledged) {
                 response.json({status: 'success'})
             } else {
                 response.json({'status': 'unable to delete message'})
+                response.sentStatus(400) // not quite the right status but will do
             }
         } else {
             // not authorised to delete 
+            response.json({status: 'not authorised'})
             response.sendStatus(401)
         }
-        response.json(result)
     } else {
-        response.sendStatus(401)
+            // not authorised to delete 
+            response.json({status: 'not authorised'})
+            response.sendStatus(401)
     }
 
 }

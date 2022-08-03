@@ -32,8 +32,7 @@ describe('api', () => {
             .expect(200)
             .expect((response) => {
                 const val = response.body
-                if (val.status != 'success') throw new Error(`expected status=success in response, got ${val.status}`)
-                if (!val.url.match(/\/api\/conversations\/\w+/)) throw new Error(`expected url got ${val.url}`)
+                if (val.status !== 'success') throw new Error(`expected status=success in response, got ${val.status}`)
             })            
     })
 
