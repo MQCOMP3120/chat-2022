@@ -11,6 +11,8 @@ router.get('/', (request, response) => {
 
 router.post('/auth/register', auth.createSession)
 
+router.get('/auth/', auth.getUser)
+
 /* GET conversations returns a list of all current conservations */
 router.get('/api/conversations', conv.getConversations)
 

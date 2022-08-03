@@ -5,11 +5,17 @@ for 2022: a real time chat service.  The back-end implementation is
 in the `server` subdirectory.  The front-end project is homed in the 
 main directory (with sources in `src`).  
 
+## Configuration
+
+Copy the file `.env.dist` to `.env` and edit the 
+
 To run the front-end development server:
 
 ```bash
 npm run start
 ```
+
+This will run the server on port 3000.
 
 ## Backend Server
 
@@ -31,11 +37,21 @@ npm run test-server
 
 ### Routes
 
+All API calls except for `/auth/register` should have
+an `Authorization` header set to `Basic xxxxxx`  where `xxxxx` is the token returned when
+the user registers.  
+
 `/auth/register`
 
 * `POST` - register a new username
   * request: `{"username": "bob"}`
-  * response: `{"status": "success"|"username taken"}`, return session cookie on success
+  * response: `{"status": "username taken"}` or `{"status": "success", "username": "bob", "token": "xxxxxx"}`
+    * The returned `token` value is used for authorization is subsequent requests.
+
+`/auth/`
+
+* GET - get the user details
+  * response: {"status": "unregistered"} or `{"status": "success", "username": "bob", "token": "xxxxxx"}`
 
 `/api/conversations/`
 

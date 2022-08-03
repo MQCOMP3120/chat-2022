@@ -13,20 +13,74 @@ describe('auth', () => {
         await models.Session.deleteMany({username: 'bobalooba'})
     })
 
-    test('post to register makes a cookie', async () => {
+    test('post to register makes a token', async () => {
         await api.post('/auth/register')
             .send({username: 'bobalooba'})
             .expect(200)
             .expect('Content-Type', /application\/json/)
-            .expect({status: 'success'})
-            .expect('Set-Cookie', /session=.*/)
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+                expect(response.body.token).not.toBeNull()
+            }) 
     })
+
+    test('get user details', async () => {
+
+        let token 
+
+        await api.post('/auth/register')
+            .send({username: 'bobalooba'})
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+                token = response.body.token
+            }) 
+
+        await api.get('/auth/')
+            .set('Authorization', `Basic ${token}`)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+            }) 
+    })
+
+    test('get user details - no auth', async () => {
+ 
+
+        await api.get('/auth/') 
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+            .expect((response) => {
+                expect(response.body.status).toBe('unregistered') 
+            }) 
+    })
+
+    test('get user details - bad token', async () => {
+
+        let token = "not a good token"
+
+        await api.get('/auth/')
+            .set('Authorization', `Basic ${token}`)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+            .expect((response) => {
+                expect(response.body.status).toBe('unregistered')
+            }) 
+    })
+
 
     test('second registration give an error status', async () => {
         await api.post('/auth/register')
             .send({username: 'bobalooba'})
             .expect(200)
-            .expect({status: 'success'})
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+            }) 
 
         await api.post('/auth/register')
             .send({username: 'bobalooba'})

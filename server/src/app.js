@@ -3,7 +3,8 @@ require('express-async-errors')
 const morgan = require('morgan')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
-var notifier = require('node-notifier')
+const notifier = require('node-notifier')
+const cors = require('cors')
 
 const router = require('./routes')
 const config = require('./config')
@@ -21,6 +22,10 @@ function errorNotification (err, str, req) {
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(cors({
+  credentials: true,
+  origin: config.corsClientDomain
+}))
 if (process.env.NODE_ENV === 'development') {
     // only use in development
     app.use(errorhandler({ log: errorNotification }))

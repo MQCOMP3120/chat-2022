@@ -14,12 +14,20 @@ describe('api', () => {
 
     test('make a  conversation', async () => {
 
+        let token
+
         await api.post('/auth/register')
             .send({username: 'bobalooba'})
             .expect(200)
-            .expect({status: 'success'})
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+                expect(response.body.token).not.toBeNull()
+                token = response.body.token
+            })
 
         await api.post('/api/conversations')
+            .set('Authorization', `Basic ${token}`)
             .send({title: "A test conversation"})
             .expect(200)
             .expect((response) => {
@@ -38,12 +46,19 @@ describe('api', () => {
 
     test('get list of conversations', async () => {
 
+        let token
         await api.post('/auth/register')
             .send({username: 'bobalooba'})
             .expect(200)
-            .expect({status: 'success'})
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+                expect(response.body.token).not.toBeNull()
+                token = response.body.token
+            })
 
         await api.get('/api/conversations')
+            .set('Authorization', `Basic ${token}`)
             .expect(200)
             .expect('Content-Type', /application\/json/)
             .expect(response => {
