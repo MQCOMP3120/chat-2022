@@ -7,7 +7,15 @@ main directory (with sources in `src`).
 
 ## Configuration
 
-Copy the file `.env.dist` to `.env` and edit the 
+Copy the file `.env.dist` to `.env` and edit the file with your own 
+settings - in particular your MongoDB settings if you are doing server
+side development.  Note that these settings are only relevant to the 
+server implementation, not the front-end.
+
+## Frontend Project
+
+The `src` folder contains a template front-end React project to get you 
+started.
 
 To run the front-end development server:
 
