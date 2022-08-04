@@ -29,6 +29,15 @@ npm run start
 
 This will run the server on port 3000.
 
+You can run the front-end tests as usual with:
+
+```bash
+npm run test
+```
+
+Which will run any tests you have added to the front-end project under `src`.  Currently it
+runs one dummy test.
+
 ## Backend Server
 
 The backend server is documented in [Backend Server](doc/backend.md). 
