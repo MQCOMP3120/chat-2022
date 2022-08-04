@@ -95,8 +95,7 @@ describe('api', () => {
             .set('Authorization', `Basic ${token}`)
             .expect(200)
             .expect(response => {
-                const val = response.body
-                console.log(val)
+                const val = response.body 
                 if (!val.messages) throw new Error('expected conversations in response')
             }) 
             
