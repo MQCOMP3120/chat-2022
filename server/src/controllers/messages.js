@@ -52,7 +52,7 @@ const getMessage = async (request, response) => {
 
     if (user) { 
         const msgid = request.params.msgid
-        const result = models.Message.findById(msgid).populate('creator')
+        const result = await models.Message.findById(msgid).populate('creator')
         response.json(result)
     } else {
         response.sendStatus(401)

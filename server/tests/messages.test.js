@@ -101,6 +101,51 @@ describe('api', () => {
             
     })
 
+
+   
+    test('get a message', async () => {
+
+        let conversation
+        let message
+        let token 
+
+        await api.post('/auth/register')
+            .send({username: 'bobalooba'})
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.status).toBe('success')
+                expect(response.body.username).toBe('bobalooba')
+                expect(response.body.token).not.toBeNull()
+                token = response.body.token
+            })
+
+        await api.post('/api/conversations')
+            .set('Authorization', `Basic ${token}`)
+            .send({title: "A test conversation"})
+            .expect(200)
+            .then(response => {
+                conversation = response.body
+            })
+
+        await api.post(`/api/conversations/${conversation.id}`)
+            .set('Authorization', `Basic ${token}`)
+            .send({text: "1 A test message"})
+            .expect(200)
+            .then(response => {
+                message = response.body
+            })
+
+        await api.get(`/api/conversations/${conversation.id}/${message.id}`) 
+            .set('Authorization', `Basic ${token}`)
+            .expect(200)
+            .expect(response => {
+                const val = response.body 
+                if (!val.text) throw new Error('expected text in response')
+            }) 
+            
+    })
+
+
     /*
     test('get list of messages - not authorised', async () => {
 
