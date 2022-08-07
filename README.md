@@ -21,6 +21,12 @@ server implementation, not the front-end.
 The `src` folder contains a template front-end React project to get you
 started.
 
+To install React and all the required packages, run:
+
+```bash
+npm install
+```
+
 To run the front-end development server:
 
 ```bash
